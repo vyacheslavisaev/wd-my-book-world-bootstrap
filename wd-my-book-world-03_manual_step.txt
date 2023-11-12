@@ -1,0 +1,20 @@
+
+
+# run some commands in parted - type "help" if you've never used parted before
+parted /dev/sdb
+(parted) mklabel gpt
+(parted) mkpart primary 16M 4000M # root filesystem - change 4000M to whatever you want
+(parted) set 1 raid on
+(parted) mkpart primary 4000M 4512M # swap space - 512M should be enough
+(parted) set 2 raid on
+(parted) mkpart primary 4512M 100% # data parition - make it really big
+(parted) set 3 raid on
+(parted) print
+(parted) quit
+
+# 2-disk owners, please now run the same commands on /dev/sdY
+# If parted tells you the new partition table will only be used after a reboot, then reboot now
+## set 1 boot on
+
+
+
